@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+:root {
+  --background: #030303;
+  --foreground: #f8fafc;
+  
+  --primary: #dc2626; /* red-600 */
+  --primary-foreground: #ffffff;
+  
+  --secondary: #111111;
+  --secondary-foreground: #f8fafc;
+
+  --accent: #ef4444; /* red-500 */
+  --accent-foreground: #ffffff;
+
+  --destructive: #7f1d1d; /* red-900 */
+  --destructive-foreground: #ffffff;
+
+  --warning: #f59e0b; /* amber-500 */
+  --success: #10b981; /* emerald-500 */
+
+  --card: #0a0a0a;
+  --card-foreground: #f8fafc;
+
+  --border: #222222;
+  --input: #0a0a0a;
+  --ring: #ef4444;
+  
+  --radius: 0;
+}
+
+body {
+  background-color: #030303;
+  color: #e2e8f0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  min-height: 100vh;
+  /* Deep vignette for horror/detective feel */
+  background-image: radial-gradient(circle at center, transparent 0%, #000000 100%);
+  background-attachment: fixed;
+}
+
+/* CRT Scanline Overlay - Removed blue channel */
+body::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(220, 38, 38, 0.04), rgba(0, 0, 0, 0.02), rgba(220, 38, 38, 0.04));
+  z-index: 999;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border: 1px solid #333;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #dc2626; /* Crimson */
+}
+
+/* Glassmorphism utilities - Darker, scarier */
+.glass-panel {
+  background: rgba(8, 8, 8, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(220, 38, 38, 0.15);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+/* 
+ * ASYMMETRIC CLIP PATHS
+ */
+.cyber-panel {
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+.cyber-panel-alt {
+  clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+}
+.cyber-button {
+  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+}
+
+/* Gritty Glows - Replaced Blue with Slate/Ghostly White or Red */
+.neon-glow-blue {
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.2); 
+}
+.neon-glow-red {
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.6), 0 0 30px rgba(220, 38, 38, 0.3);
+}
+.neon-text-blue {
+  text-shadow: 0 0 8px rgba(220, 38, 38, 0.5);
+}
+
+/* Hide default cursor */
+* {
+  cursor: none !important;
+}
+
+/* Glitch Animation */
+.glitch-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.glitch-text {
+  position: relative;
+  color: white;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(10px, 9999px, 31px, 0); }
+  100% { clip: rect(14px, 9999px, 12px, 0); }
+}
