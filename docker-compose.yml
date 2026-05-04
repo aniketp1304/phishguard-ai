@@ -1,28 +1,14 @@
-version: '3.8'
+version: "3.8"
 
 services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
     ports:
       - "5050:5050"
-    networks:
-      - phishguard-network
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
     ports:
       - "3030:3030"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:5050/api
-    depends_on:
-      - backend
-    networks:
-      - phishguard-network
-
-networks:
-  phishguard-network:
-    driver: bridge
