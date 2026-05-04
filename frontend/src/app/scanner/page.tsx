@@ -184,7 +184,7 @@ export default function Scanner() {
             key="result"
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            transition={{ type: "spring", stiffness: 100, damping: 20 } as const}
             className="max-w-4xl mx-auto relative z-10"
           >
             <div className={`glass-panel cyber-panel-alt rounded-none overflow-hidden border-2 shadow-2xl transition-all duration-500 ${getVerdictColor(result.verdict).split(' ').slice(1).join(' ')}`}>

@@ -1,47 +1,40 @@
-/**
- * PhishGuard AI — Scan Router
- * POST /api/scan    → Run a URL through the phishing detector
- * GET  /api/scan/stats → Aggregate statistics
- */
-
 const express = require('express');
-const { v4: uuidv4 } = require('uuid');
+const router = express.Router();
 const { analyseUrl } = require('../engine/phishingDetector');
 const { addLog, getStats } = require('../data/store');
 
-const router = express.Router();
-
 // POST /api/scan
 router.post('/', async (req, res) => {
+  const { url } = req.body;
+
+  if (!url) {
+    return res.status(400).json({
+      success: false,
+      error: "URL is required"
+    });
+  }
+
   try {
-    const { url } = req.body;
-
-    if (!url || typeof url !== 'string' || url.trim() === '') {
-      return res.status(400).json({
-        success: false,
-        error: 'URL is required and must be a non-empty string.',
-      });
-    }
-
-    const result = await analyseUrl(url.trim());
-
+    const result = await analyseUrl(url);
+    
+    // Create a log entry with additional fields if needed
     const logEntry = {
-      id: uuidv4(),
       ...result,
-      createdAt: new Date().toISOString(),
+      id: Math.random().toString(36).substring(2, 11),
+      createdAt: new Date().toISOString()
     };
 
     addLog(logEntry);
 
-    return res.status(200).json({
+    res.json({
       success: true,
-      data: logEntry,
+      data: logEntry
     });
-  } catch (err) {
-    console.error('[SCAN ERROR]', err.message);
-    return res.status(500).json({
+  } catch (error) {
+    console.error('[SCAN ERROR]', error);
+    res.status(500).json({
       success: false,
-      error: 'Internal server error during URL analysis.',
+      error: error.message || "An error occurred during scanning"
     });
   }
 });
@@ -49,7 +42,10 @@ router.post('/', async (req, res) => {
 // GET /api/scan/stats
 router.get('/stats', (req, res) => {
   const stats = getStats();
-  res.json({ success: true, data: stats });
+  res.json({
+    success: true,
+    data: stats
+  });
 });
 
 module.exports = router;

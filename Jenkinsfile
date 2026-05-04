@@ -3,6 +3,17 @@ pipeline {
 
     stages {
 
+        stage('Debug Workspace') {
+            steps {
+                sh '''
+                echo "Current directory:"
+                pwd
+                echo "Files:"
+                ls -la
+                '''
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -29,7 +40,11 @@ pipeline {
 
         stage('Verify') {
             steps {
-                sh 'docker ps'
+                sh '''
+                docker ps
+                curl -f http://localhost:3030 || exit 1
+                curl -f http://localhost:5050 || exit 1
+                '''
             }
         }
     }

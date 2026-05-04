@@ -9,18 +9,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 const containerVariants = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.1 } }
-};
+} as const;
 
 const itemVariants = {
   hidden: { opacity: 0, x: -20 },
   show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
-};
+} as const;
 
 const contentVariants = {
   hidden: { opacity: 0, scale: 0.95 },
   show: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
   exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } }
-};
+} as const;
 
 export default function Tools() {
   const [activeTab, setActiveTab] = useState('password');
@@ -133,7 +133,7 @@ export default function Tools() {
                           initial={{ width: 0 }}
                           animate={{ width: `${pwdStrength.pct}%` }}
                           className={`h-full ${pwdStrength.color} ${pwdStrength.shadow}`} 
-                          transition={{ type: "spring", bounce: 0.2 }}
+                          transition={{ type: "spring", bounce: 0.2 } as const}
                         />
                       </div>
                       <ul className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-medium">

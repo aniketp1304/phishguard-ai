@@ -57,7 +57,7 @@ const MagneticButton = ({ children, onClick, className }: any) => {
       onMouseLeave={reset}
       onClick={onClick}
       animate={{ x: position.x, y: position.y }}
-      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+      transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 } as const}
       className={className}
     >
       {children}
@@ -74,7 +74,7 @@ const TechNode = ({ icon: Icon, title, desc, delay, x, y }: any) => {
       ref={ref}
       initial={{ opacity: 0, scale: 0.8, x: x - 50, y: y + 50 }}
       animate={isInView ? { opacity: 1, scale: 1, x, y } : {}}
-      transition={{ duration: 0.8, delay, type: "spring", bounce: 0.4 }}
+      transition={{ duration: 0.8, delay, type: "spring", bounce: 0.4 } as const}
       className="absolute glass-panel cyber-panel p-4 border border-red-500/30 flex items-center gap-4 group"
     >
       <div className="p-3 bg-red-500/20 cyber-button group-hover:bg-red-500/40 transition-colors">
@@ -124,7 +124,7 @@ export default function LandingPage() {
           <motion.div 
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, filter: "blur(20px)", scale: 1.1 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] } as const}
             className="fixed inset-0 z-[9999] bg-black flex flex-col items-center justify-center font-mono p-6"
           >
             <div className="max-w-2xl w-full">
@@ -186,7 +186,7 @@ export default function LandingPage() {
           
           <motion.div 
             animate={{ y: [0, -20, 0], rotate: [0, 5, -5, 0] }} 
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" } as const}
             className="absolute top-[20%] left-[20%] p-6 cyber-panel glass-panel border-red-500/30 opacity-60"
           >
             <ShieldCheck className="w-12 h-12 text-red-500 drop-shadow-[0_0_15px_#ef4444]" />
@@ -194,7 +194,7 @@ export default function LandingPage() {
 
           <motion.div 
             animate={{ y: [0, 30, 0], rotate: [0, -10, 10, 0] }} 
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 } as const}
             className="absolute bottom-[20%] right-[20%] p-6 cyber-panel-alt glass-panel border-red-500/30 opacity-60"
           >
             <Lock className="w-12 h-12 text-red-500 drop-shadow-[0_0_15px_#ef4444]" />
